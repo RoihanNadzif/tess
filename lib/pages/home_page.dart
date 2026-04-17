@@ -1,18 +1,46 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String username;
   final String password;
   const HomeScreen({super.key, required this.username, required this.password});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  DateTime? tanggalSekarang = DateTime(2026, 4, 17);
+  Future<void> _pilihTanggal() async {
+    final DateTime? tanggalDipilih = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2006, 1, 1),
+      lastDate: DateTime(2045, 1, 1),
+    );
+    if (tanggalDipilih != null) {
+      setState(() {
+        tanggalSekarang = tanggalDipilih;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [Text("Username: $username abcod"), Text("Password: $password")],
-        ),
+      body: Column(
+        children: [
+          Column(
+            children: [
+              Text("Username: ${widget.username}"),
+              Text("Password: ${widget.password}"),
+              Text('${tanggalSekarang}'),
+              ElevatedButton(onPressed: () =>
+                _pilihTanggal()
+                , child: Text("Pilih Tanggal"))
+            ],
+          ),
+        ],
       ),
     );
   }

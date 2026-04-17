@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -34,6 +35,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _showPassword = true;
+  bool _checkBox = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,22 +75,82 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               TextField(
                 controller: _passwordController,
-                decoration: InputDecoration(hintText: "password"),
+                decoration: InputDecoration(
+                  hintText: "password",
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      print("button ditekan");
+                      setState(() {
+                        _showPassword = !_showPassword;
+                      });
+                    },
+                    icon: _showPassword
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off),
+                  ),
+                ),
+                obscureText: _showPassword,
+                obscuringCharacter: "*",
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _checkBox,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _checkBox = !_checkBox;
+                      });
+                    },
+                  ),
+                  Text("Remember me"),
+                ],
               ),
               Row(
                 children: [
                   Expanded(
                     child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(
-                              username: _usernameController.text,
-                              password: _passwordController.text,
-                            ),
-                          ),
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                    size: 80,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text("Login berhasil !!!"),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("OK"),
+                                ),
+                              ],
+                            );
+                          },
                         );
+                        await Future.delayed(Duration(seconds: 2));
+
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(
+                                username: _usernameController.text,
+                                password: _passwordController.text,
+                              ),
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         "Login",
