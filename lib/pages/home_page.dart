@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Center(
         child: Column(
-          children: [Text("Username: $username"), Text("Password: $password")],
+          children: [Text("Username: $username abcod"), Text("Password: $password")],
         ),
       ),
     );
