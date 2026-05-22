@@ -1,10 +1,23 @@
+import 'package:camera/camera.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tess/pages/home_page.dart';
 import 'package:tess/pages/product_page.dart';
+import 'package:tess/pages/main_camera.dart';
+import 'package:tess/pages/preview_camera.dart';
 
-void main() {
+List<CameraDescription> cameras = [];
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    cameras = await availableCameras();
+  } catch (e) {
+    debugPrint("camera tidak tersedia $e");
+  }
+
   runApp(
     DevicePreview(enabled: !kReleaseMode, builder: (context) => const MyApp()),
   );
@@ -18,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const ProductPage(),
+      home: MainCamera(cameras: cameras),
       debugShowCheckedModeBanner: false,
     );
   }
