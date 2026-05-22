@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tess/pages/ambil_gambar.dart';
 import 'package:tess/pages/home_page.dart';
 import 'package:tess/pages/product_page.dart';
 import 'package:tess/pages/main_camera.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: MainCamera(cameras: cameras),
+      home: AmbilGambarScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
