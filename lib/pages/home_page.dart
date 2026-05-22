@@ -35,9 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Text("Username: ${widget.username}"),
               Text("Password: ${widget.password}"),
               Text('${tanggalSekarang}'),
-              ElevatedButton(onPressed: () =>
-                _pilihTanggal()
-                , child: Text("Pilih Tanggal"))
+              ElevatedButton(
+                onPressed: () => _pilihTanggal(),
+                child: Text("Pilih Tanggal"),
+              ),
             ],
           ),
         ],
