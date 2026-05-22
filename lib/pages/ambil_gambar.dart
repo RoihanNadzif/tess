@@ -18,24 +18,28 @@ class _AmbilGambarScreenState extends State<AmbilGambarScreen> {
         gambar = File(gbr.path);
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Ambil Gambar"),),
+      appBar: AppBar(title: Text("Ambil Gambar")),
       body: Center(
         child: Column(
           children: [
-            gambar != null ? Image.file(gambar!, height: 200, width: 200,) :
-            Text('ngga ada gambar'),
-            
+            gambar != null
+                ? Image.file(gambar!, height: 200, width: 200)
+                : Text('ngga ada gambar'),
 
+            ElevatedButton(
+              onPressed: () => ambil(ImageSource.camera),
+              child: Text("Kamera"),
+            ),
 
-            ElevatedButton(onPressed: ()=> ambil(ImageSource.camera), child: Text("Kamera")),
-
-                ElevatedButton(onPressed: ()=> ambil(ImageSource.gallery), child: Text("Galeri")),
+            ElevatedButton(
+              onPressed: () => ambil(ImageSource.gallery),
+              child: Text("Galeri"),
+            ),
           ],
         ),
       ),
