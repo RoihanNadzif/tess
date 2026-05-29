@@ -7,6 +7,7 @@ import 'package:tess/pages/home_page.dart';
 import 'package:tess/pages/product_page.dart';
 import 'package:tess/pages/main_camera.dart';
 import 'package:tess/pages/preview_camera.dart';
+import 'package:tess/pages/map_screen.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: AmbilGambarScreen(),
+      home: MapScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
